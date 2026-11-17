@@ -470,7 +470,8 @@ PRODUCT_PACKAGES += \
     hostapd \
     libwifi-hal-wrapper \
     wlan_assistant \
-    wpa_supplicant
+    wpa_supplicant \
+    wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \

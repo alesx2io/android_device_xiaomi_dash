@@ -2516,7 +2516,6 @@ vendor/etc/wifi/nvram/wfnv_desc_data_6653.bin
 vendor/etc/wifi/nvram/wfnv_desc_map_6639.bin
 vendor/etc/wifi/nvram/wfnv_desc_map_6653.bin
 vendor/etc/wifi/p2p_supplicant_overlay.conf
-vendor/etc/wifi/wpa_supplicant.conf
 vendor/etc/wifi/wpa_supplicant_overlay.conf
 vendor/firmware/WIFI_MT6639_PATCH_MCU_new9gen2_1_hdr.bin
 vendor/firmware/WIFI_MT6653_PATCH_MCU_2g2a_1_hdr.bin
