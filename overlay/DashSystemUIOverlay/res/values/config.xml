@@ -17,4 +17,9 @@
     <!-- If using proximity_sensor_type, specifies a threshold value to distinguish near and
          far break points. A sensor value less than this is considered "near". -->
     <item name="proximity_sensor_threshold" translatable="false" format="float" type="dimen">5</item>
+
+    <!-- MiuiCamera exposes both .Camera and .AssistantCamera for the secure camera intent:
+         open .Camera directly from the lock screen instead of showing a chooser. -->
+    <string name="config_cameraGesturePackage" translatable="false">com.android.camera</string>
+    <string name="config_cameraSecureActivity" translatable="false">com.android.camera/.Camera</string>
 </resources>
