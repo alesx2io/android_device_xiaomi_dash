@@ -20,6 +20,15 @@ public class BootReceiver extends BroadcastReceiver {
 
     static void applyFloor(Context context) {
         try {
+            float current = Settings.System.getFloat(
+                    context.getContentResolver(), "min_refresh_rate", 0f);
+            if (current >= MIN_REFRESH_RATE_HZ) {
+                // Keep whatever the user selected in Settings (e.g. 90 or 120Hz).
+                // Only values below the floor (including unset/0) need fixing.
+                Log.i(TAG, "min_refresh_rate already " + current
+                        + "Hz, keeping persisted value");
+                return;
+            }
             boolean applied = Settings.System.putFloat(
                     context.getContentResolver(),
                     "min_refresh_rate",
