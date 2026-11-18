@@ -120,9 +120,22 @@ def blob_fixup_displayconfig(
         '    </ambientBrightnessChangeThresholdsIdle>\n'
     )
 
+    refresh_rate = (
+        '    <!-- DisplayModeDirector prefers these values over the framework config.xml resources.\n'
+        '         Keep the 60 Hz default for the Settings picker (via config_defaultRefreshRate), but let\n'
+        "         the framework's effective default be 120 so the render range is [min, 120] instead of\n"
+        '         being capped at 60 by a [0,60] default vote. -->\n'
+        '    <refreshRate>\n'
+        '        <defaultRefreshRate>120</defaultRefreshRate>\n'
+        '    </refreshRate>\n'
+    )
+
+    hbm_anchor = '    </highBrightnessMode>\n'
     ramp_anchor = '    <ambientLightHorizonLong>1500</ambientLightHorizonLong>\n'
     threshold_anchor = '    <ambientLightHorizonShort>1000</ambientLightHorizonShort>\n'
 
+    if hbm_anchor in data and '<defaultRefreshRate>' not in data:
+        data = data.replace(hbm_anchor, hbm_anchor + refresh_rate, 1)
     if ramp_anchor in data and 'screenBrightnessRampFastDecrease' not in data:
         data = data.replace(ramp_anchor, ramps + ramp_anchor, 1)
     if threshold_anchor in data and 'ambientBrightnessChangeThresholds' not in data:
