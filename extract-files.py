@@ -82,6 +82,41 @@ def blob_fixup_zero_wlan_wakelock_cfg(
         f.write(data)
 
 
+def blob_fixup_displayconfig(
+    ctx: BlobFixupCtx,
+    file: File,
+    file_path: str,
+    *args,
+    **kwargs,
+):
+    with open(file_path, 'r') as f:
+        data = f.read()
+
+    thresholds = (
+        '    <!-- tsl2525_als reports integer lux: require more than 1 lux of change before\n'
+        '         brightening, so a reading that toggles between N and N+1 does not move the screen.\n'
+        '         Percentages still come from config_ambientBrighteningThresholds. -->\n'
+        '    <ambientBrightnessChangeThresholds>\n'
+        '        <brighteningThresholds>\n'
+        '            <minimum>1</minimum>\n'
+        '        </brighteningThresholds>\n'
+        '    </ambientBrightnessChangeThresholds>\n'
+        '    <ambientBrightnessChangeThresholdsIdle>\n'
+        '        <brighteningThresholds>\n'
+        '            <minimum>1</minimum>\n'
+        '        </brighteningThresholds>\n'
+        '    </ambientBrightnessChangeThresholdsIdle>\n'
+    )
+
+    threshold_anchor = '    <ambientLightHorizonShort>1000</ambientLightHorizonShort>\n'
+
+    if threshold_anchor in data and 'ambientBrightnessChangeThresholds' not in data:
+        data = data.replace(threshold_anchor, threshold_anchor + thresholds, 1)
+
+    with open(file_path, 'w') as f:
+        f.write(data)
+
+
 def lib_fixup_vendor_suffix(lib: str, partition: str, *args, **kwargs):
     return f'{lib}_{partition}' if partition == 'vendor' else None
 
@@ -270,6 +305,8 @@ blob_fixups: blob_fixups_user_type = {
     # so it releases immediately and never blocks suspend.
     'vendor/firmware/wifi.cfg': blob_fixup()
         .call(blob_fixup_zero_wlan_wakelock_cfg),
+    'vendor/etc/displayconfig/display_id_4627039422300187648.xml': blob_fixup()
+        .call(blob_fixup_displayconfig),
     'vendor/lib64/libcodec2_fsr.so': blob_fixup()
         .call(blob_fixup_graphic_buffer_size)
         .replace_needed('android.hardware.graphics.common-V5-ndk.so', 'android.hardware.graphics.common-V7-ndk.so'),
