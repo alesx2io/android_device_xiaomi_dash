@@ -14,6 +14,10 @@ public class MinRefreshRateApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // Enforce the floor on every app start (boot and process restarts), but
+        // only when the persisted value is below the floor so user choices stick.
+        BootReceiver.applyFloor(this);
+
         getContentResolver().registerContentObserver(
                 Settings.System.getUriFor("min_refresh_rate"),
                 false,
