@@ -49,7 +49,9 @@ class BootCompletedReceiver : BroadcastReceiver() {
         )
 
         if (hasNonRemovableEuicc) {
-            EsimController.getInstance(context).onBootCompleted()
+            // The state query starts a vendor service and can block for a few
+            // seconds, so keep it off the main thread during boot.
+            Thread { EsimController.getInstance(context).onBootCompleted() }.start()
         }
     }
 
