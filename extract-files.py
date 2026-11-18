@@ -92,6 +92,18 @@ def blob_fixup_displayconfig(
     with open(file_path, 'r') as f:
         data = f.read()
 
+    ramps = (
+        '    <!-- Brightness ramps (perceptual brightness per second). Without them the framework falls\n'
+        '         back to config_brightness_ramp_rate_*, which the overlay sets above the 0-255 scale, so\n'
+        '         every change was clamped to 1.0/s and auto brightness jumped instead of fading.\n'
+        '         Slow ramps are used by auto brightness, fast ones by manual changes. -->\n'
+        '    <screenBrightnessRampFastDecrease>0.50</screenBrightnessRampFastDecrease>\n'
+        '    <screenBrightnessRampFastIncrease>0.60</screenBrightnessRampFastIncrease>\n'
+        '    <screenBrightnessRampSlowDecrease>0.10</screenBrightnessRampSlowDecrease>\n'
+        '    <screenBrightnessRampSlowIncrease>0.15</screenBrightnessRampSlowIncrease>\n'
+        '    <screenBrightnessRampIncreaseMaxMillis>2000</screenBrightnessRampIncreaseMaxMillis>\n'
+        '    <screenBrightnessRampDecreaseMaxMillis>3000</screenBrightnessRampDecreaseMaxMillis>\n'
+    )
     thresholds = (
         '    <!-- tsl2525_als reports integer lux: require more than 1 lux of change before\n'
         '         brightening, so a reading that toggles between N and N+1 does not move the screen.\n'
@@ -108,8 +120,11 @@ def blob_fixup_displayconfig(
         '    </ambientBrightnessChangeThresholdsIdle>\n'
     )
 
+    ramp_anchor = '    <ambientLightHorizonLong>1500</ambientLightHorizonLong>\n'
     threshold_anchor = '    <ambientLightHorizonShort>1000</ambientLightHorizonShort>\n'
 
+    if ramp_anchor in data and 'screenBrightnessRampFastDecrease' not in data:
+        data = data.replace(ramp_anchor, ramps + ramp_anchor, 1)
     if threshold_anchor in data and 'ambientBrightnessChangeThresholds' not in data:
         data = data.replace(threshold_anchor, threshold_anchor + thresholds, 1)
 
