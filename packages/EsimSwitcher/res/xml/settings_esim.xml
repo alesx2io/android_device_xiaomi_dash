@@ -18,4 +18,8 @@
         android:title="@string/esim_footer_note"
         android:selectable="false" />
 
+    <Preference
+        android:key="esim_retry"
+        android:title="@string/esim_retry" />
+
 </PreferenceScreen>

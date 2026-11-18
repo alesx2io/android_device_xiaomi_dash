@@ -14,4 +14,7 @@
     <string name="esim_warning_title">eSIM in use</string>
     <string name="esim_warning_message">Please disable or remove your current eSIM profile before proceeding</string>
     <string name="esim_footer_note">Enabling eSIM will disable the second physical SIM slot</string>
+    <string name="esim_state_error">Couldn\'t read the eSIM state</string>
+    <string name="esim_toggle_error">Couldn\'t change the eSIM state</string>
+    <string name="esim_retry">Retry</string>
 </resources>
