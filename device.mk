@@ -56,6 +56,9 @@ PRODUCT_PACKAGES += \
     audio.usb.default
 
 PRODUCT_PACKAGES += \
+    libaudiohaladaptervendorext.mediatek
+
+PRODUCT_PACKAGES += \
     libaecsw \
     libagc1sw \
     libagc2sw \

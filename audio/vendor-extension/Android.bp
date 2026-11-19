@@ -1,0 +1,32 @@
+//
+// SPDX-FileCopyrightText: The Android Open Source Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// IHalAdapterVendorExtension for the MediaTek AIDL audio HAL.
+// Loaded by android.hardware.audio.parameter_parser.service through
+// ro.audio.ihaladaptervendorextension_libname.
+cc_library_shared {
+    name: "libaudiohaladaptervendorext.mediatek",
+    system_ext_specific: true,
+
+    defaults: [
+        "latest_android_hardware_audio_core_ndk_shared",
+    ],
+
+    srcs: ["VendorExtension.cpp"],
+
+    shared_libs: [
+        "av-audio-types-aidl-ndk",
+        "libbase",
+        "libbinder_ndk",
+        "libmedia_helper",
+        "libutils",
+    ],
+
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wextra",
+    ],
+}

@@ -2,6 +2,7 @@
 ro.audio.silent=0
 ro.audio.flinger_standbytime_ms=2000
 ro.audio.ihaladaptervendorextension_enabled=true
+ro.audio.ihaladaptervendorextension_libname=libaudiohaladaptervendorext.mediatek.so
 ro.audio.usb.period_us=16000
 ro.camera.sound.forced=0
 
