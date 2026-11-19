@@ -764,4 +764,8 @@
 
     <!-- Whether to enable fp unlock when screen turns off on udfps devices -->
     <bool name="config_screen_off_udfps_enabled">true</bool>
+    <!-- Safe headphone volume index. Media uses 30 steps (ro.config.media_vol_steps),
+         so keep the AOSP ratio of 10/15. -->
+    <integer name="config_safe_media_volume_index">20</integer>
+
 </resources>
