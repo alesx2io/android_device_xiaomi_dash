@@ -77,6 +77,7 @@ def blob_fixup_zero_wlan_wakelock_cfg(
         b'blocks suspend\n'
         b'WakeLockThreadTO 0\n'
         b'WakeLockRxTO 0\n'
+        b'WakeLockTimerTO 0\n'
     )
     with open(file_path, 'wb') as f:
         f.write(data)
