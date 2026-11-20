@@ -141,6 +141,11 @@ def blob_fixup_displayconfig(
         data = data.replace(ramp_anchor, ramps + ramp_anchor, 1)
     if threshold_anchor in data and 'ambientBrightnessChangeThresholds' not in data:
         data = data.replace(threshold_anchor, threshold_anchor + thresholds, 1)
+    # The stock 1.5 s / 1 s ambient light horizons are tuned for the HyperOS brightness
+    # algorithm. With the AOSP controller they make auto brightness follow every short
+    # shadow on the under-display sensor; use the AOSP defaults instead.
+    data = data.replace(ramp_anchor, '    <ambientLightHorizonLong>10000</ambientLightHorizonLong>\n', 1)
+    data = data.replace(threshold_anchor, '    <ambientLightHorizonShort>2000</ambientLightHorizonShort>\n', 1)
 
     with open(file_path, 'w') as f:
         f.write(data)
