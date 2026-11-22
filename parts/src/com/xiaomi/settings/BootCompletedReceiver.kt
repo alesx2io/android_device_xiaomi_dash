@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.Display;
 import android.view.Display.HdrCapabilities;
 import com.xiaomi.settings.display.ColorService
+import com.xiaomi.settings.touch.TouchFeatureController
 
 class BootCompletedReceiver : BroadcastReceiver() {
 
@@ -43,6 +44,9 @@ class BootCompletedReceiver : BroadcastReceiver() {
     private fun onLockedBootCompleted(context: Context) {
         // Display
         ColorService.startService(context)
+
+        // Touch
+        TouchFeatureController.start(context.applicationContext)
     }
 
     companion object {
